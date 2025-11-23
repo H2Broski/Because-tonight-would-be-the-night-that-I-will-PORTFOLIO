@@ -20,20 +20,23 @@ export default function RegisterPage() {
     setError("");
     setSuccess("");
 
-    // Validate passwords match
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
     try {
+      console.log("Attempting to register with:", { username, API_BASE });
+
       const res = await fetch(`${API_BASE}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
 
+      console.log("Response status:", res.status);
       const data = await res.json();
+      console.log("Response data:", data);
 
       if (!res.ok) {
         setError(data.message || "Registration failed");
@@ -45,7 +48,12 @@ export default function RegisterPage() {
         router.push("/");
       }, 2000);
     } catch (err) {
-      setError("Network error. Please try again.");
+      console.error("Registration error:", err);
+      setError(
+        `Network error: ${
+          err instanceof Error ? err.message : "Please try again"
+        }`
+      );
     }
   }
 
