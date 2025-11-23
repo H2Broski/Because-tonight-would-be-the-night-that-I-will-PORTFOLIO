@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-export default function Home() {
+export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
