@@ -26,7 +26,8 @@ export default function RegisterPage() {
     }
 
     try {
-      console.log("Attempting to register with:", { username, API_BASE });
+      console.log("Registering at:", `${API_BASE}/auth/register`);
+      console.log("Payload:", { username, password });
 
       const res = await fetch(`${API_BASE}/auth/register`, {
         method: "POST",
@@ -35,11 +36,12 @@ export default function RegisterPage() {
       });
 
       console.log("Response status:", res.status);
+
       const data = await res.json();
       console.log("Response data:", data);
 
       if (!res.ok) {
-        setError(data.message || "Registration failed");
+        setError(data.message || data.error || "Registration failed");
         return;
       }
 
@@ -50,9 +52,7 @@ export default function RegisterPage() {
     } catch (err) {
       console.error("Registration error:", err);
       setError(
-        `Network error: ${
-          err instanceof Error ? err.message : "Please try again"
-        }`
+        `Error: ${err instanceof Error ? err.message : "Please try again"}`
       );
     }
   }
