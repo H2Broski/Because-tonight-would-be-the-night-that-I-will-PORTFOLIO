@@ -31,7 +31,7 @@ export default function LoginPage() {
     }
 
     saveToken(data.accessToken);
-    router.push("/home");
+    router.push("/dashboard");
   }
 
   return (
