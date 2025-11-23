@@ -3,31 +3,10 @@
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { saveToken } from "@/app/components/Buttons/saveButton";
-import * as React from "react";
-
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={`rounded-lg border bg-white text-gray-900 shadow-sm ${
-      className || ""
-    }`}
-    {...props}
-  />
-));
-Card.displayName = "Card";
-
-const CardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={`p-6 pt-0 ${className || ""}`} {...props} />
-));
-CardContent.displayName = "CardContent";
-
-export { Card, CardContent };
+import { Card, CardContent } from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
+import { Button } from "@/app/components/ui/button";
+import { API_BASE } from "@/app/lib/config";
 
 export default function LoginPage() {
   const router = useRouter();
