@@ -1,7 +1,8 @@
 "use client";
+
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getToken, logoutUser } from "@/app/lib/auth";
-import { Button } from "@/components/ui/button";
+import { getToken } from "@/app/components/Buttons/saveButton";
 
 export default function DashboardLayout({
   children,
@@ -9,27 +10,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const token = getToken();
 
-  if (!token) {
-    router.push("/login");
-    return null;
-  }
+  useEffect(() => {
+    // Only check auth after component mounts
+    const token = getToken();
+    if (!token) {
+      router.push("/");
+    }
+  }, [router]);
 
-  function handleLogout() {
-    logoutUser();
-    router.push("/login");
-  }
-
-  return (
-    <div className="p-6">
-      <header className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        <Button variant="destructive" onClick={handleLogout}>
-          Logout
-        </Button>
-      </header>
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 }

@@ -2,11 +2,10 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { saveToken, getToken } from "@/app/components/Buttons/saveButton";
+import { saveToken } from "@/app/components/Buttons/saveButton";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
-import { API_BASE } from "@/app/lib/config";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,34 +17,30 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    const res = await fetch(`${API_BASE}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
+    // TEMPORARY: Mock authentication for demo
+    if (username && password) {
+      const mockToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
 
-    const data = await res.json();
-    console.log("Login response:", data);
+      console.log("Saving mock token:", mockToken);
+      saveToken(mockToken);
 
-    if (!res.ok) {
-      setError(data.message || "Login failed");
-      return;
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 100);
+    } else {
+      setError("Please enter username and password");
     }
-
-    console.log("Saving token:", data.accessToken);
-    saveToken(data.accessToken);
-
-    // Verify token was saved
-    console.log("Token saved, now in storage:", getToken());
-
-    router.push("/dashboard");
   }
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-50">
       <Card className="w-full max-w-sm p-6">
         <CardContent>
-          <h1 className="text-xl font-bold mb-4">Login</h1>
+          <h1 className="text-xl font-bold mb-4">Login (Demo Mode)</h1>
+          <p className="text-sm text-gray-500 mb-4">
+            Enter any username and password to continue
+          </p>
           <form onSubmit={handleLogin} className="space-y-4">
             <Input
               placeholder="Username"
@@ -53,6 +48,7 @@ export default function LoginPage() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUsername(e.target.value)
               }
+              required
             />
             <Input
               type="password"
@@ -61,6 +57,7 @@ export default function LoginPage() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
+              required
             />
             {error && <p className="text-red-500">{error}</p>}
             <Button className="w-full" type="submit">
