@@ -3,20 +3,27 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getToken, removeToken } from "@/app/components/Buttons/saveButton";
-import { Card, CardContent } from "@/app/components/ui/card";
-import { Button } from "@/app/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function DashboardPage() {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Wait for client-side to load
     const savedToken = getToken();
+    console.log("Token from storage:", savedToken);
+
     if (!savedToken) {
+      console.log("No token found, redirecting to login...");
       router.push("/");
       return;
     }
+
     setToken(savedToken);
+    setIsLoading(false);
   }, [router]);
 
   const handleLogout = () => {
@@ -24,10 +31,10 @@ export default function DashboardPage() {
     router.push("/");
   };
 
-  if (!token) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        Loading...
+        <p>Loading...</p>
       </div>
     );
   }
@@ -52,27 +59,12 @@ export default function DashboardPage() {
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Quick Links:</h3>
               <div className="grid grid-cols-2 gap-4">
-                <Button onClick={() => router.push("/about")} variant="default">
-                  About
-                </Button>
-                <Button
-                  onClick={() => router.push("/education")}
-                  variant="default"
-                >
+                <Button onClick={() => router.push("/about")}>About</Button>
+                <Button onClick={() => router.push("/education")}>
                   Education
                 </Button>
-                <Button
-                  onClick={() => router.push("/hobbies")}
-                  variant="default"
-                >
-                  Hobbies
-                </Button>
-                <Button
-                  onClick={() => router.push("/contact")}
-                  variant="default"
-                >
-                  Contact
-                </Button>
+                <Button onClick={() => router.push("/hobbies")}>Hobbies</Button>
+                <Button onClick={() => router.push("/contact")}>Contact</Button>
               </div>
             </div>
 

@@ -1,11 +1,18 @@
 export function saveToken(token: string) {
-  localStorage.setItem("authToken", token);
+  if (typeof window !== "undefined") {
+    localStorage.setItem("authToken", token);
+  }
 }
 
 export function getToken() {
-  return localStorage.getItem("authToken");
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("authToken");
+  }
+  return null;
 }
 
 export function removeToken() {
-  localStorage.removeItem("authToken");
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("authToken");
+  }
 }

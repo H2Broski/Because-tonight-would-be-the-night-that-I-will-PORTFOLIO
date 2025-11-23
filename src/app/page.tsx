@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { saveToken } from "@/app/components/Buttons/saveButton";
+import { saveToken, getToken } from "@/app/components/Buttons/saveButton";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
@@ -25,13 +25,20 @@ export default function LoginPage() {
     });
 
     const data = await res.json();
+    console.log("Login response:", data);
+
     if (!res.ok) {
       setError(data.message || "Login failed");
       return;
     }
 
+    console.log("Saving token:", data.accessToken);
     saveToken(data.accessToken);
-    router.push("/dashboard"); // Redirect to dashboard
+
+    // Verify token was saved
+    console.log("Token saved, now in storage:", getToken());
+
+    router.push("/dashboard");
   }
 
   return (
