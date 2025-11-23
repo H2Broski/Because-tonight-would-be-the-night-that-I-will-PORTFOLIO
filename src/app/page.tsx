@@ -6,30 +6,46 @@ import { saveToken } from "@/app/components/Buttons/saveButton";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
+import { API_BASE } from "@/app/lib/config";
 
 export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
-    // TEMPORARY: Mock authentication for demo
-    if (username && password) {
-      const mockToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+    try {
+      const res = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
 
-      console.log("Saving mock token:", mockToken);
-      saveToken(mockToken);
+      const data = await res.json();
 
-      setTimeout(() => {
+      if (!res.ok) {
+        setError(data.message || "Login failed");
+        setIsLoading(false);
+        return;
+      }
+
+      if (data.accessToken) {
+        saveToken(data.accessToken);
         router.push("/dashboard");
-      }, 100);
-    } else {
-      setError("Please enter username and password");
+      } else {
+        setError("No token received");
+        setIsLoading(false);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Network error. Please try again.");
+      setIsLoading(false);
     }
   }
 
@@ -37,31 +53,26 @@ export default function LoginPage() {
     <div className="flex items-center justify-center h-screen bg-gray-50">
       <Card className="w-full max-w-sm p-6">
         <CardContent>
-          <h1 className="text-xl font-bold mb-4">Login (Demo Mode)</h1>
-          <p className="text-sm text-gray-500 mb-4">
-            Enter any username and password to continue
-          </p>
+          <h1 className="text-xl font-bold mb-4">Login</h1>
           <form onSubmit={handleLogin} className="space-y-4">
             <Input
               placeholder="Username"
               value={username}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setUsername(e.target.value)
-              }
+              onChange={(e) => setUsername(e.target.value)}
               required
+              disabled={isLoading}
             />
             <Input
               type="password"
               placeholder="Password"
               value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.target.value)
-              }
+              onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={isLoading}
             />
-            {error && <p className="text-red-500">{error}</p>}
-            <Button className="w-full" type="submit">
-              Login
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <Button className="w-full" type="submit" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
             </Button>
           </form>
 
@@ -69,6 +80,7 @@ export default function LoginPage() {
             variant="link"
             className="w-full mt-4"
             onClick={() => router.push("/register")}
+            disabled={isLoading}
           >
             Create an account
           </Button>
