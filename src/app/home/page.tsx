@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -41,38 +42,40 @@ export default function HomePage() {
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
         } ${isDarkMode ? "border-gray-700" : "border-gray-200"}`}
       >
-        <a
-          href="https://kamenrider.fandom.com/wiki/Kamen_Rider_Wiki"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="transition-all duration-300 hover:scale-110"
-        >
-          <img src="logo.webp" alt="Kamen Rider Logo" className="h-12 w-auto" />
-        </a>
+        <div className="flex items-center gap-8">
+          <Link
+            href="/home"
+            className="text-lg font-semibold hover:opacity-70 transition-opacity"
+          >
+            Home
+          </Link>
+          <Link
+            href="/about"
+            className="text-lg hover:opacity-70 transition-opacity"
+          >
+            About
+          </Link>
+          <Link
+            href="/education"
+            className="text-lg hover:opacity-70 transition-opacity"
+          >
+            Education
+          </Link>
+          <Link
+            href="/hobbies"
+            className="text-lg hover:opacity-70 transition-opacity"
+          >
+            Hobbies
+          </Link>
+          <Link
+            href="/contact"
+            className="text-lg hover:opacity-70 transition-opacity"
+          >
+            Contact
+          </Link>
+        </div>
 
         <div className="flex items-center gap-8">
-          <ul className="flex gap-8 text-lg">
-            {["Home", "About", "Education", "Hobbies", "Contact"].map(
-              (item, index) => (
-                <li key={item} style={{ transitionDelay: `${index * 100}ms` }}>
-                  <a
-                    href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                    className={`relative group transition-colors duration-300 ${
-                      isDarkMode ? "hover:text-blue-400" : "hover:text-blue-600"
-                    }`}
-                  >
-                    {item}
-                    <span
-                      className={`absolute left-0 bottom-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                        isDarkMode ? "bg-blue-400" : "bg-blue-600"
-                      }`}
-                    ></span>
-                  </a>
-                </li>
-              )
-            )}
-          </ul>
-
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
