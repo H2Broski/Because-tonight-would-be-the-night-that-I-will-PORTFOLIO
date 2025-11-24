@@ -57,34 +57,34 @@ export default function HomePage() {
         </a>
 
         {/* Navigation Links - Centered */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-8">
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-4">
           <Link
             href="/home"
-            className="text-lg font-semibold text-blue-500 transition-colors duration-300"
+            className="text-lg px-4 py-2 rounded-full bg-blue-500 text-white transition-all duration-300"
           >
             Home
           </Link>
           <Link
             href="/about"
-            className="text-lg hover:text-blue-500 transition-colors duration-300"
+            className="text-lg px-4 py-2 rounded-full transition-all duration-300 hover:bg-blue-500 hover:text-white"
           >
             About
           </Link>
           <Link
             href="/education"
-            className="text-lg hover:text-blue-500 transition-colors duration-300"
+            className="text-lg px-4 py-2 rounded-full transition-all duration-300 hover:bg-blue-500 hover:text-white"
           >
             Education
           </Link>
           <Link
             href="/hobbies"
-            className="text-lg hover:text-blue-500 transition-colors duration-300"
+            className="text-lg px-4 py-2 rounded-full transition-all duration-300 hover:bg-blue-500 hover:text-white"
           >
             Hobbies
           </Link>
           <Link
             href="/contact"
-            className="text-lg hover:text-blue-500 transition-colors duration-300"
+            className="text-lg px-4 py-2 rounded-full transition-all duration-300 hover:bg-blue-500 hover:text-white"
           >
             Contact
           </Link>
