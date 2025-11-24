@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Hobbies() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -289,71 +290,66 @@ export default function Hobbies() {
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
         } ${isDarkMode ? "border-gray-700" : "border-gray-200"}`}
       >
+        {/* Logo - Links to Kamen Rider Wiki */}
         <a
           href="https://kamenrider.fandom.com/wiki/Kamen_Rider_Wiki"
           target="_blank"
           rel="noopener noreferrer"
-          className="transition-all duration-300 hover:scale-110"
+          className="flex items-center hover:scale-110 transition-transform duration-300 flex-shrink-0"
         >
-          <img src="logo.webp" alt="Kamen Rider Logo" className="h-12 w-auto" />
+          <img
+            src="/logo.webp"
+            alt="Shin Kamen Rider Logo"
+            className="h-12 w-auto"
+          />
         </a>
 
-        <div className="flex items-center gap-8">
-          <ul className="flex gap-8 text-lg">
-            {["Home", "About", "Education", "Hobbies", "Contact"].map(
-              (item, index) => (
-                <li key={item} style={{ transitionDelay: `${index * 100}ms` }}>
-                  <a
-                    href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                    className={`relative group transition-colors duration-300 ${
-                      isDarkMode ? "hover:text-blue-400" : "hover:text-blue-600"
-                    } ${
-                      item === "Hobbies"
-                        ? isDarkMode
-                          ? "text-blue-400"
-                          : "text-blue-600"
-                        : ""
-                    }`}
-                  >
-                    {item}
-                    <span
-                      className={`absolute left-0 bottom-0 w-full h-0.5 transition-all duration-300 ${
-                        isDarkMode ? "bg-blue-400" : "bg-blue-600"
-                      } ${
-                        item === "Hobbies" ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
-                    ></span>
-                  </a>
-                </li>
-              )
-            )}
-          </ul>
-
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className={`p-2 rounded-lg transition-all duration-300 ${
-              isDarkMode
-                ? "bg-gray-800 hover:bg-gray-700 text-yellow-400"
-                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-            }`}
-            aria-label="Toggle theme"
+        {/* Navigation Links - Centered */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-8">
+          <Link
+            href="/home"
+            className="text-lg hover:text-blue-500 transition-colors duration-300"
           >
-            {isDarkMode ? (
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-              </svg>
-            )}
-          </button>
+            Home
+          </Link>
+          <Link
+            href="/about"
+            className="text-lg hover:text-blue-500 transition-colors duration-300"
+          >
+            About
+          </Link>
+          <Link
+            href="/education"
+            className="text-lg hover:text-blue-500 transition-colors duration-300"
+          >
+            Education
+          </Link>
+          <Link
+            href="/hobbies"
+            className="text-lg font-semibold text-blue-500 transition-colors duration-300"
+          >
+            Hobbies
+          </Link>
+          <Link
+            href="/contact"
+            className="text-lg hover:text-blue-500 transition-colors duration-300"
+          >
+            Contact
+          </Link>
         </div>
+
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className={`p-2 rounded-lg transition-all duration-300 flex-shrink-0 ${
+            isDarkMode
+              ? "bg-gray-800 hover:bg-gray-700 text-yellow-400"
+              : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+          }`}
+          aria-label="Toggle theme"
+        >
+          {isDarkMode ? "🌙" : "☀️"}
+        </button>
       </nav>
 
       {/* HOBBIES CONTENT SECTION */}

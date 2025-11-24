@@ -39,7 +39,7 @@ export default function About() {
           href="https://kamenrider.fandom.com/wiki/Kamen_Rider_Wiki"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center hover:scale-110 transition-transform duration-300"
+          className="flex items-center hover:scale-110 transition-transform duration-300 flex-shrink-0"
         >
           <img
             src="/logo.webp"
@@ -48,8 +48,8 @@ export default function About() {
           />
         </a>
 
-        {/* Navigation Links */}
-        <div className="flex items-center gap-8">
+        {/* Navigation Links - Centered */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-8">
           <Link
             href="/home"
             className="text-lg hover:text-blue-500 transition-colors duration-300"
@@ -85,7 +85,7 @@ export default function About() {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className={`p-2 rounded-lg transition-all duration-300 ${
+          className={`p-2 rounded-lg transition-all duration-300 flex-shrink-0 ${
             isDarkMode
               ? "bg-gray-800 hover:bg-gray-700 text-yellow-400"
               : "bg-gray-100 hover:bg-gray-200 text-gray-700"
