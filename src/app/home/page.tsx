@@ -42,6 +42,17 @@ export default function HomePage() {
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
         } ${isDarkMode ? "border-gray-700" : "border-gray-200"}`}
       >
+        {/* Logo - Links to Kamen Rider Wiki */}
+        <a
+          href="https://kamenrider.fandom.com/wiki/Kamen_Rider_Wiki"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center hover:opacity-80 transition-opacity"
+        >
+          <img src="/logo.webp" alt="RIDER TIME!" className="h-8 w-auto" />
+        </a>
+
+        {/* Navigation Links */}
         <div className="flex items-center gap-8">
           <Link
             href="/home"
@@ -75,6 +86,7 @@ export default function HomePage() {
           </Link>
         </div>
 
+        {/* Theme Toggle */}
         <div className="flex items-center gap-8">
           {/* Theme Toggle Button */}
           <button
