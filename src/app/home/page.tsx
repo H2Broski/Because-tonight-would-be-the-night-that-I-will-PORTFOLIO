@@ -50,7 +50,7 @@ export default function HomePage() {
           className="flex items-center hover:scale-110 transition-transform duration-300"
         >
           <img
-            src="/shin-kamen-rider-logo.png"
+            src="/logo.webp"
             alt="Shin Kamen Rider Logo"
             className="h-12 w-auto"
           />
