@@ -47,40 +47,44 @@ export default function HomePage() {
           href="https://kamenrider.fandom.com/wiki/Kamen_Rider_Wiki"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center hover:opacity-80 transition-opacity"
+          className="flex items-center hover:scale-110 transition-transform duration-300"
         >
-          <img src="/logo.webp" alt="RIDER TIME!" className="h-8 w-auto" />
+          <img
+            src="/shin-kamen-rider-logo.png"
+            alt="Shin Kamen Rider Logo"
+            className="h-12 w-auto"
+          />
         </a>
 
         {/* Navigation Links */}
         <div className="flex items-center gap-8">
           <Link
             href="/home"
-            className="text-lg font-semibold hover:opacity-70 transition-opacity"
+            className="text-lg font-semibold hover:opacity-70 transition-opacity no-underline"
           >
             Home
           </Link>
           <Link
             href="/about"
-            className="text-lg hover:opacity-70 transition-opacity"
+            className="text-lg hover:opacity-70 transition-opacity no-underline"
           >
             About
           </Link>
           <Link
             href="/education"
-            className="text-lg hover:opacity-70 transition-opacity"
+            className="text-lg hover:opacity-70 transition-opacity no-underline"
           >
             Education
           </Link>
           <Link
             href="/hobbies"
-            className="text-lg hover:opacity-70 transition-opacity"
+            className="text-lg hover:opacity-70 transition-opacity no-underline"
           >
             Hobbies
           </Link>
           <Link
             href="/contact"
-            className="text-lg hover:opacity-70 transition-opacity"
+            className="text-lg hover:opacity-70 transition-opacity no-underline"
           >
             Contact
           </Link>
